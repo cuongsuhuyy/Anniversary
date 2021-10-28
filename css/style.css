@@ -1857,7 +1857,7 @@ form label {
   background-repeat: no-repeat;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 500px) {
   .background-header {
     background-image:url('images/background-header-02.jpg'); 
     background-size: 100% 100%; 
