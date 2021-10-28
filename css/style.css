@@ -1850,6 +1850,22 @@ form label {
   right: 200px;
 }
 
+.background-header {
+  background-image:url('images/background-header.jpg'); 
+  background-size: 100% 100%; 
+  background-attachment: fixed; 
+  background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 400px) {
+  .background-header {
+    background-image:url('images/background-header-02.jpg'); 
+    background-size: 100% 100%; 
+    background-attachment: fixed; 
+    background-repeat: no-repeat;
+  }
+}
+
 @media screen and (max-width: 800px){
   .simply-countdown > .simply-section > div {
     /* countdown block inner div */
