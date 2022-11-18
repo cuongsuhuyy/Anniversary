@@ -115,7 +115,7 @@
      */
     simplyCountdown = function (elt, args) {
         var parameters = extend({
-                year: 2020,
+                year: 2019,
                 month: 11,
                 day: 1,
                 hours: 0,
@@ -153,6 +153,7 @@
             seconds,
             cd = document.querySelectorAll(elt);
 
+            
         targetTmpDate = new Date(
             parameters.year,
             parameters.month - 1,
@@ -174,7 +175,6 @@
         } else {
             targetDate = targetTmpDate;
         }
-
         Array.prototype.forEach.call(cd, function (countdown) {
             var fullCountDown = createElements(parameters, countdown),
                 refresh;
@@ -186,13 +186,26 @@
                     secondWord;
 
                 now = new Date();
+
+                if (targetDate.getFullYear() < now.getFullYear())
+                {
+                    targetDate = new Date(
+                        now.getUTCFullYear() + 1,
+                        11,
+                        1,
+                        targetTmpDate.getUTCHours(),
+                        targetTmpDate.getUTCMinutes(),
+                        targetTmpDate.getUTCSeconds()
+                    );
+                }
+
                 if (parameters.enableUtc) {
                     nowUtc = new Date(now.getFullYear(), now.getMonth(), now.getDate(),
                         now.getHours(), now.getMinutes(), now.getSeconds());
                     secondsLeft = (targetDate - nowUtc.getTime()) / 1000;
 
                 } else {
-                    secondsLeft = (targetDate - now.getTime()) / 1000;
+                    secondsLeft = (targetDate - nowUtc.getTime()) / 1000;
                 }
 
                 if (secondsLeft > 0) {
@@ -212,6 +225,21 @@
                     window.clearInterval(interval);
                     parameters.onEnd();
                 }
+
+                //pass value to banner live love laught
+                var secondBeenTogether = (nowUtc.getTime() - targetTmpDate) / 1000;
+                var daysBeenTogether = parseInt(secondBeenTogether / 86400, 10);
+                secondBeenTogether = secondBeenTogether % 86400;
+
+                var hoursBeenTogether = parseInt(secondBeenTogether / 3600, 10);
+                secondBeenTogether = secondBeenTogether % 3600;
+
+                var minutesBeenTogether = parseInt(secondBeenTogether / 60, 10);
+
+                document.getElementById("DayTogether").dataset.to = daysBeenTogether;
+                document.getElementById("HoursTogether").dataset.to = daysBeenTogether * 24;
+                document.getElementById("MinutesTogether").dataset.to = daysBeenTogether * 24 * 60;
+                document.getElementById("SecondsTogether").dataset.to = daysBeenTogether * 24 * 60 * 60;
 
                 if (parameters.plural) {
                     dayWord = days > 1
